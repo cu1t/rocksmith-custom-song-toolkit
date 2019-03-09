@@ -501,7 +501,7 @@ namespace RocksmithToolkitLib.DLCPackage
             // Package Info
             var versionFile = Directory.EnumerateFiles(unpackedDir, "toolkit.version", SearchOption.AllDirectories).FirstOrDefault();
             if (versionFile != null)
-                data.ToolkitInfo = GeneralExtensions.ReadToolkitInfo(versionFile);
+                data.ToolkitInfo = GeneralExtension.ReadToolkitInfo(versionFile);
             else
                 data.ToolkitInfo = new ToolkitInfo();
 
@@ -743,9 +743,9 @@ namespace RocksmithToolkitLib.DLCPackage
             {
                 var ddsFilesC = new List<DDSConvertedFile>();
                 foreach (var file in ddsFiles)
+                {
                     switch (Path.GetFileNameWithoutExtension(file).Split('_').Last())
                     {
-
                         case "256":
                             data.AlbumArtPath = file;
                             ddsFilesC.Add(new DDSConvertedFile() { sizeX = 256, sizeY = 256, sourceFile = file, destinationFile = file.CopyToTempFile(".dds") });
@@ -757,6 +757,7 @@ namespace RocksmithToolkitLib.DLCPackage
                             ddsFilesC.Add(new DDSConvertedFile() { sizeX = 64, sizeY = 64, sourceFile = file, destinationFile = file.CopyToTempFile(".dds") });
                             break;
                     }
+                }
 
                 data.ArtFiles = ddsFilesC;
             }
@@ -850,7 +851,7 @@ namespace RocksmithToolkitLib.DLCPackage
             // Package Info
             var versionFile = Directory.EnumerateFiles(unpackedDir, "toolkit.version", SearchOption.AllDirectories).FirstOrDefault();
             if (versionFile != null)
-                data.ToolkitInfo = GeneralExtensions.ReadToolkitInfo(versionFile);
+                data.ToolkitInfo = GeneralExtension.ReadToolkitInfo(versionFile);
             else
             {
                 data.ToolkitInfo = new ToolkitInfo();
